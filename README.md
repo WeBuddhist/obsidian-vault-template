@@ -56,24 +56,40 @@ You'll need Git on your machine to clone the repo and let Obsidian sync.
 
 ### 4. Clone the repo to your computer
 
+**First, decide where the vault should live.** Use Finder (Mac) or File Explorer (Windows) to create a parent folder somewhere convenient. The repo will end up as a subfolder inside this one.
+
+**Get the path of that folder so you can paste it into the terminal.** Two easy ways:
+
+*Mac*
+
+- Open Terminal, type `cd ` (with a trailing space), then **drag the folder from Finder onto the Terminal window** — Terminal will paste the full path automatically. Press Return.
+- Or in Finder, right-click the folder while holding **Option**, choose **Copy "<folder>" as Pathname**, then in Terminal type `cd ` and paste (`Cmd + V`).
+
+*Windows*
+
+- In File Explorer, click into the address bar at the top of the window — it'll switch to showing the full path. Copy it.
+- Or hold **Shift** while right-clicking the folder and choose **Copy as path**.
+- In PowerShell or Git Bash, type `cd ` and paste the path. (PowerShell also supports dragging the folder onto the window to paste its path.)
+
+**Now clone the repo into that folder:**
+
 On the new repo's GitHub page, click the green **Code** button and copy the HTTPS URL.
 
-In Terminal (Mac)(or Git Bash), navigate to where you want the vault folder to live and run:
+Then back in Terminal, PowerShell or Git Bash: type `git clone` plus the URL of your new repo:
 
 ```
-cd ~/Documents
 git clone https://github.com/WeBuddhist/<your-new-repo>.git
 ```
 
-This creates a folder with the vault contents inside it.
-
-(If you're using GitHub Desktop, click **File → Clone repository**, pick the repo from the list, and choose where to save it.)
+This creates a subfolder with the vault contents inside the folder you just navigated into.
 
 ### 5. Open the folder as a vault in Obsidian
 
 1. Open Obsidian.
-2. Click **Open another vault** (the vault-switcher icon, bottom-left).
-3. Choose **Open folder as vault** and select the folder you just cloned.
+2. In the menu, choose **File** and then **Open Vault**.
+3. In the popup menu that appears, next to **Open folder as vault** and scl.
+
+Or if you have another vault open
 
 ### 6. Trust the author and enable the plugin
 
@@ -89,7 +105,7 @@ That's it — the vault will start auto-pulling and auto-committing on a 10-minu
 Each teammate repeats steps 1 and 3–6 above:
 
 1. Install Obsidian.
-2. Install Git and authorize the command line (or use GitHub Desktop).
+2. Install Git and authorize the command line.
 3. Make sure they have access to the repo on GitHub.
 4. Clone the repo and open the folder as a vault in Obsidian.
 5. Trust the author and enable plugins.
