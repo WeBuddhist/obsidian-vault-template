@@ -1,127 +1,154 @@
 # obsidian-vault-template
 
-A template for creating shared [Obsidian](https://obsidian.md) vaults that sync via Git every 10 minutes. Comes preconfigured with the [obsidian-git](https://github.com/Vinzent03/obsidian-git) community plugin.
+A template for creating a shared [Obsidian](https://obsidian.md) notebook (called a *vault*) that your whole team can edit together. Everyone's changes save and sync automatically every 10 minutes. The vault comes set up with the [obsidian-git](https://github.com/Vinzent03/obsidian-git) community plugin.
+
 ## What this gives you
 
-- A Git-backed Obsidian vault that auto-pulls every 10 minutes and auto-commits/pushes your changes on a 10-minute interval
-- A `.gitignore` that keeps personal workspace state and OS junk (`.DS_Store`, `.trash/`, etc.) out of the repo
-- The obsidian-git plugin already bundled and configured, so new collaborators can sync as soon as they clone your repo and open in Obsidian
+- A shared Obsidian vault. Whatever you write, your teammates see — and the other way around.
+- Automatic saving and syncing every 10 minutes, so you don't have to remember to save.
+- A list of files to ignore (`.gitignore`) so personal settings and hidden system files stay out of the shared copy.
+- The Obsidian Git plugin already installed and set up. New teammates can start using the vault as soon as they finish setup.
+
+## A few words you'll see
+
+- **Vault** — the folder that Obsidian uses to hold your notes.
+- **Git** — the tool that syncs the vault between you and your teammates.
+- **Terminal** (Mac) / **PowerShell** or **Git Bash** (Windows) — a window where you type commands instead of clicking buttons. You only need it during setup.
+- **Clone** — making a copy of the GitHub repo on your own computer.
+- **Sync** — what happens automatically: your changes go up to GitHub, and your teammates' changes come down to you.
 
 ## Set up a new vault
 
+You only do this once per team. After this, you just open Obsidian like a normal app.
+
 ### 1. Install Obsidian
 
-Download and install Obsidian from [obsidian.md](https://obsidian.md). It's free and available for Mac, Windows, Linux.
+Download Obsidian from [obsidian.md](https://obsidian.md) and install it. It's free and works on Mac, Windows, and Linux.
 
 ### 2. Create a new repo from this template
 
+This is the shared home for your vault on GitHub.
+
 1. Go to the [WeBuddhist organization on GitHub](https://github.com/WeBuddhist) and click the **Repositories** tab.
-2. Click the green **New repository** button (top right).
-3. Give the repo a name (e.g. `team-notes`).
-4. Choose **Private** or **Public** as appropriate.
-5. Next to **Start with a template** click on the **No template** dropdown and select `WeBuddhist/obsidian-vault-template`.
+2. Click the green **New repository** button at the top right.
+3. Type a name for the repo (for example, `team-notes`).
+4. Choose **Private** (only WeBuddhist GitHub team members can see it) or **Public** (anyone can see it).
+5. Next to **Repository template**, click the **No template** dropdown and choose `WeBuddhist/obsidian-vault-template`.
 6. Click **Create repository**.
 
-GitHub will create a new repo with the vault structure and obsidian-git config.
+GitHub will create a new repo with the vault's structure already inside it.
 
-### 3. Install Git on your computer and authorize the command line
+### 3. Install Git and connect your GitHub account
 
-You'll need Git on your machine to clone the repo and let Obsidian sync.
+You only do this once per computer. Git is the tool Obsidian uses to sync the vault. After you connect your GitHub account, you won't have to log in again.
 
 **Mac**
 
-1. Open Terminal (⌘ + Space, type "Terminal").
-2. Run `git --version`. If Git isn't installed, macOS will prompt you to install the Xcode Command Line Tools — accept the prompt and wait for it to finish.
-3. Set your identity (this is what shows up on commits):
+1. Open Terminal. (Press `Cmd + Space`, type "Terminal", and press Return.)
+2. Type `git --version` and press Return. If Git isn't installed, your Mac will ask if you want to install the Xcode Command Line Tools — click **Install** and wait for it to finish.
+3. Tell Git who you are. This name and email will appear next to every change you save:
    ```
    git config --global user.name "Your Name"
    git config --global user.email "you@webuddhist.com"
    ```
-4. Authorize GitHub from the command line. The easiest way is to install [GitHub CLI](https://cli.github.com/) (`brew install gh`), then run:
+4. Connect your GitHub account. The easiest way is to install [GitHub CLI](https://cli.github.com/) by running:
+   ```
+   brew install gh
+   ```
+   If Terminal says `command not found: brew`, you don't have Homebrew yet. Homebrew is a free tool that installs other tools on a Mac. Install it by pasting this into Terminal and pressing Return:
+   ```
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+   It will ask for your Mac password and may take a few minutes. When it finishes, you may see a "Next steps" message at the end — copy and run the two `echo` and `eval` lines it shows you (this lets Terminal find `brew`). Then run `brew install gh` again.
+
+   Once GitHub CLI is installed, run:
    ```
    gh auth login
    ```
-   Choose **GitHub.com → HTTPS → Login with a web browser**, and follow the prompts. This stores credentials so you won't be prompted on every push.
+   Choose **GitHub.com → HTTPS → Login with a web browser** and follow the steps it shows you. After you do this once, GitHub won't ask for your password again.
 
 **Windows**
 
-1. Install [Git for Windows](https://git-scm.com/download/win). Use the defaults during install.
-2. Open Git Bash (or PowerShell) and set your identity:
+1. Install [Git for Windows](https://git-scm.com/download/win). Keep the default settings during installation.
+2. Open Git Bash (or PowerShell) and tell Git who you are:
    ```
    git config --global user.name "Your Name"
    git config --global user.email "you@webuddhist.com"
    ```
-3. Install [GitHub CLI](https://cli.github.com/) and run `gh auth login` to authorize:
-	Choose **GitHub.com → HTTPS → Login with a web browser**, and follow the prompts. This stores credentials so you won't be prompted on every push.
+3. Install [GitHub CLI](https://cli.github.com/), then run `gh auth login` to connect your GitHub account. Choose **GitHub.com → HTTPS → Login with a web browser** and follow the steps it shows you. After you do this once, GitHub won't ask for your password again.
 
-### 4. Clone the repo to your computer
+### 4. Make a copy of the repo on your computer
 
-**First, decide where the vault should live.** Use Finder (Mac) or File Explorer (Windows) to create a parent folder somewhere convenient. The repo will end up as a subfolder inside this one.
+This step downloads a copy of the GitHub repo onto your own computer. The technical word for this is *cloning*.
 
-**Get the path of that folder so you can paste it into the terminal.** Two easy ways:
+**First, decide where the vault should live.** Use Finder (Mac) or File Explorer (Windows) to create a folder for it — for example, a folder called `WeBuddhist` inside your Documents folder.
+
+**Now tell the Terminal where that folder is.** The "where" is called the *path*. Here are the easiest ways to copy it.
 
 *Mac*
 
-- Open Terminal, type `cd ` (with a trailing space), then **drag the folder from Finder onto the Terminal window** — Terminal will paste the full path automatically. Press Return.
-- Or in Finder, right-click the folder while holding **Option** and choose **Copy "[folder name]" as Pathname**, then in Terminal type `cd ` and paste (`Cmd + V`).
+- Open Terminal, type `cd ` (the letters c-d followed by one space), then **drag the folder from Finder onto the Terminal window**. Terminal will paste the path for you. Press Return.
+- Or, in Finder, hold the **Option** key and right-click the folder. Choose **Copy "[folder name]" as Pathname** from the menu. Then in Terminal, type `cd ` and paste with `Cmd + V`.
 
 *Windows*
 
-- In File Explorer, click into the address bar at the top of the window — it'll switch to showing the full path. Copy it.
-- Or hold **Shift** while right-clicking the folder and choose **Copy as path**.
-- In PowerShell or Git Bash, type `cd ` and paste the path. (PowerShell also supports dragging the folder onto the window to paste its path.)
+- In File Explorer, click into the address bar at the top of the window — the path will appear. Copy it.
+- Or, hold **Shift** and right-click the folder. Choose **Copy as path** from the menu.
+- In PowerShell or Git Bash, type `cd ` and paste the path. (You can also drag the folder onto the PowerShell window to paste its path.)
 
-**Now clone the repo into that folder:**
+**Copy the repo's link from GitHub.** On your new repo's page on GitHub, click the green **Code** button and copy the HTTPS link.
 
-On the new repo's GitHub page, click the green **Code** button and copy the HTTPS URL.
-
-Then back in Terminal, PowerShell or Git Bash: type `git clone` plus the URL of your new repo:
+**Download the repo into that folder.** Back in Terminal (or PowerShell / Git Bash), type `git clone ` and paste the link:
 
 ```
 git clone https://github.com/WeBuddhist/<your-new-repo>.git
 ```
 
-This creates a subfolder with the vault contents inside the folder you just navigated into.
+Press Return. This creates a new folder inside the one you chose, with the vault's contents inside.
 
 ### 5. Open the folder as a vault in Obsidian
 
 1. Open Obsidian.
-2. In the menu, choose **File** and then **Open Vault**.
-3. In the popup that appears, click **Open** next to **Open folder as vault**.
-4. Choose the folder that you just created for the vault.
+2. In the menu at the top, choose **File**, then **Open Vault**.
+3. In the window that appears, click **Open** next to **Open folder as vault**.
+4. Choose the folder that you just downloaded.
 
-Or if you already have another vault open:
+Or, if you already have another vault open in Obsidian:
 
 1. Click the name of the open vault in the bottom-left corner of the Obsidian window.
 2. In the menu that appears, choose **Manage Vaults**.
-3. In the popup that appears, click **Open** next to **Open folder as vault**.
-4. Choose the folder that you just created for the vault.
+3. In the window that appears, click **Open** next to **Open folder as vault**.
+4. Choose the folder that you just downloaded.
 
-### 6. Trust the author and enable the plugin
+### 6. Trust the author and turn on the plugin
 
-The first time you open the vault, Obsidian will warn you about community plugins.
+The first time you open the vault, Obsidian will show a warning about community plugins. This is because the Git plugin came with the template.
 
 1. Click **Trust author & enable plugins**.
-2. Go to **Settings → Community plugins** and confirm **Obsidian Git** is enabled.
+2. Go to **Settings → Community plugins** and check that **Obsidian Git** is turned on.
 
-That's it — the vault will start auto-pulling and auto-committing on a 10-minute interval.
+That's it. The vault will now save your changes and pull in your teammates' changes automatically every 10 minutes.
 
 ## How sync works
 
-The obsidian-git plugin is configured in `.obsidian/plugins/obsidian-git/data.json` to:
+Every 10 minutes, Obsidian Git does two things:
 
-- Auto-pull every 10 minutes (and on app boot)
-- Auto-commit changes every 10 minutes with a message like `vault backup: 2026-05-05 14:32:01`
-- Pull before pushing, using merge as the sync method
+- **Pulls** — downloads any changes your teammates have made.
+- **Saves and uploads** — records your changes (called a *commit*) and sends them up to GitHub (called a *push*).
 
-If two people edit the same note at the same time, you may see a merge conflict — Obsidian Git will show conflict markers in the file, and you can resolve them like any other Git conflict.
+It also pulls when you first open Obsidian, so you start with the latest copy of the vault.
 
-### Committing on demand
+If two people edit the same line of the same note at the same time, Git won't know which version to keep. This is called a **merge conflict**. Obsidian Git will mark the conflicting lines in the file with special symbols. You can pick the version you want, delete the rest, and save the file.
 
-If you don't want to wait for the 10-minute auto-commit (e.g. you just finished a big edit and want to share it now), click the **Source Control View** icon in the left ribbon to open the right-side Git panel. From there you can stage files, write a commit message, and push with one click. You can also run **Obsidian Git: Create backup** from the command palette (`Cmd/Ctrl + P`) to do a full add → commit → push in one shot.
+### Saving on demand
+
+If you don't want to wait 10 minutes (for example, you just finished a big edit and want your teammates to see it now), you can save manually.
+
+- Click the **Source Control View** icon in the left ribbon to open the Git panel on the right side of Obsidian. From there, you can pick which files to save, type a short message about the change, and click to save and upload.
+- Or, open Obsidian's command palette by pressing `Cmd + P` (Mac) or `Ctrl + P` (Windows). Type "create backup" and choose **Obsidian Git: Create backup**. This saves and uploads everything in one step.
 
 ## Troubleshooting
 
-- **"Author not trusted" warning keeps appearing** — make sure you clicked **Trust author & enable plugins**, not just **Turn on community plugins**.
-- **Nothing is syncing** — open the command palette (`Cmd/Ctrl + P`) and run `Obsidian Git: Check repository status`. The status bar at the bottom of Obsidian should also show the current branch and sync state.
-- **Authentication errors on push** — re-run `gh auth login`, or set up an [SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) if you prefer.
+- **The "Author not trusted" warning keeps appearing** — make sure you clicked **Trust author & enable plugins**, not just **Turn on community plugins**.
+- **Nothing is syncing** — open the command palette (`Cmd + P` on Mac, `Ctrl + P` on Windows) and run **Obsidian Git: Check repository status**. The bar at the bottom of Obsidian also shows the current branch and sync status.
+- **You see an authentication error when saving** — run `gh auth login` again to reconnect your GitHub account. If that doesn't work, you can [set up an SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) instead.
