@@ -1,30 +1,30 @@
 # obsidian-vault-template
 
-A starter template for creating shared [Obsidian](https://obsidian.md) vaults that sync via Git every 10 minutes. Comes preconfigured with the [obsidian-git](https://github.com/Vinzent03/obsidian-git) community plugin.
+A template for creating shared [Obsidian](https://obsidian.md) vaults that sync via Git every 10 minutes. Comes preconfigured with the [obsidian-git](https://github.com/Vinzent03/obsidian-git) community plugin.
 ## What this gives you
 
 - A Git-backed Obsidian vault that auto-pulls every 10 minutes and auto-commits/pushes your changes on a 10-minute interval
 - A `.gitignore` that keeps personal workspace state and OS junk (`.DS_Store`, `.trash/`, etc.) out of the repo
-- The obsidian-git plugin already bundled and configured, so each new collaborator just trusts the plugin and goes
+- The obsidian-git plugin already bundled and configured, so new collaborators can sync as soon as they clone your repo and open in Obsidian
 
 ## Set up a new vault
 
 ### 1. Install Obsidian
 
-Download and install Obsidian from [obsidian.md](https://obsidian.md). It's free and available for Mac, Windows, Linux, iOS, and Android.
+Download and install Obsidian from [obsidian.md](https://obsidian.md). It's free and available for Mac, Windows, Linux.
 
 ### 2. Create a new repo from this template
 
 1. Go to the [WeBuddhist organization on GitHub](https://github.com/WeBuddhist) and click the **Repositories** tab.
 2. Click the green **New repository** button (top right).
 3. Give the repo a name (e.g. `team-notes`).
-4. Find the **"Repository template"** dropdown (labeled *Start with a template* on some screens) near the top of the form, and choose **WeBuddhist/obsidian-vault-template**.
-5. Choose **Private** or **Public** as appropriate.
+4. Choose **Private** or **Public** as appropriate.
+5. Next to **Start with a template** click on the **No template** dropdown and select `WeBuddhist/obsidian-vault-template.
 6. Click **Create repository**.
 
-GitHub will spin up a new repo seeded with the vault structure and obsidian-git config.
+GitHub will create a new repo with the vault structure and obsidian-git config.
 
-### 3. Install Git and authorize the command line
+### 3. Install Git on your computer and authorize the command line
 
 You'll need Git on your machine to clone the repo and let Obsidian sync.
 
@@ -51,15 +51,14 @@ You'll need Git on your machine to clone the repo and let Obsidian sync.
    git config --global user.name "Your Name"
    git config --global user.email "you@webuddhist.com"
    ```
-3. Install [GitHub CLI](https://cli.github.com/) and run `gh auth login` to authorize, the same way as on Mac.
-
-If you'd rather skip the terminal entirely, install [GitHub Desktop](https://desktop.github.com/) and sign in there — it handles auth for you.
+3. Install [GitHub CLI](https://cli.github.com/) and run `gh auth login` to authorize:
+	Choose **GitHub.com → HTTPS → Login with a web browser**, and follow the prompts. This stores credentials so you won't be prompted on every push.
 
 ### 4. Clone the repo to your computer
 
 On the new repo's GitHub page, click the green **Code** button and copy the HTTPS URL.
 
-In Terminal (or Git Bash), navigate to where you want the vault folder to live and run:
+In Terminal (Mac)(or Git Bash), navigate to where you want the vault folder to live and run:
 
 ```
 cd ~/Documents
@@ -104,6 +103,10 @@ The obsidian-git plugin is configured in `.obsidian/plugins/obsidian-git/data.js
 - Pull before pushing, using merge as the sync method
 
 If two people edit the same note at the same time, you may see a merge conflict — Obsidian Git will show conflict markers in the file, and you can resolve them like any other Git conflict.
+
+### Committing on demand
+
+If you don't want to wait for the 10-minute auto-commit (e.g. you just finished a big edit and want to share it now), click the **Source Control View** icon in the left ribbon to open the right-side Git panel. From there you can stage files, write a commit message, and push with one click. You can also run **Obsidian Git: Create backup** from the command palette (`Cmd/Ctrl + P`) to do a full add → commit → push in one shot.
 
 ## Mobile
 
