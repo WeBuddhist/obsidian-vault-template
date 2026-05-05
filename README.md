@@ -19,7 +19,7 @@ Download and install Obsidian from [obsidian.md](https://obsidian.md). It's free
 2. Click the green **New repository** button (top right).
 3. Give the repo a name (e.g. `team-notes`).
 4. Choose **Private** or **Public** as appropriate.
-5. Next to **Start with a template** click on the **No template** dropdown and select `WeBuddhist/obsidian-vault-template.
+5. Next to **Start with a template** click on the **No template** dropdown and select `WeBuddhist/obsidian-vault-template`.
 6. Click **Create repository**.
 
 GitHub will create a new repo with the vault structure and obsidian-git config.
@@ -63,7 +63,7 @@ You'll need Git on your machine to clone the repo and let Obsidian sync.
 *Mac*
 
 - Open Terminal, type `cd ` (with a trailing space), then **drag the folder from Finder onto the Terminal window** — Terminal will paste the full path automatically. Press Return.
-- Or in Finder, right-click the folder while holding **Option**, choose **Copy "<folder>" as Pathname**, then in Terminal type `cd ` and paste (`Cmd + V`).
+- Or in Finder, right-click the folder while holding **Option** and choose **Copy "[folder name]" as Pathname**, then in Terminal type `cd ` and paste (`Cmd + V`).
 
 *Windows*
 
@@ -87,9 +87,15 @@ This creates a subfolder with the vault contents inside the folder you just navi
 
 1. Open Obsidian.
 2. In the menu, choose **File** and then **Open Vault**.
-3. In the popup menu that appears, next to **Open folder as vault** and scl.
+3. In the popup that appears, click **Open** next to **Open folder as vault**.
+4. Choose the folder that you just created for the vault.
 
-Or if you have another vault open
+Or if you already have another vault open:
+
+1. Click the name of the open vault in the bottom-left corner of the Obsidian window.
+2. In the menu that appears, choose **Manage Vaults**.
+3. In the popup that appears, click **Open** next to **Open folder as vault**.
+4. Choose the folder that you just created for the vault.
 
 ### 6. Trust the author and enable the plugin
 
@@ -99,16 +105,6 @@ The first time you open the vault, Obsidian will warn you about community plugin
 2. Go to **Settings → Community plugins** and confirm **Obsidian Git** is enabled.
 
 That's it — the vault will start auto-pulling and auto-committing on a 10-minute interval.
-
-## Inviting collaborators
-
-Each teammate repeats steps 1 and 3–6 above:
-
-1. Install Obsidian.
-2. Install Git and authorize the command line.
-3. Make sure they have access to the repo on GitHub.
-4. Clone the repo and open the folder as a vault in Obsidian.
-5. Trust the author and enable plugins.
 
 ## How sync works
 
@@ -123,16 +119,6 @@ If two people edit the same note at the same time, you may see a merge conflict 
 ### Committing on demand
 
 If you don't want to wait for the 10-minute auto-commit (e.g. you just finished a big edit and want to share it now), click the **Source Control View** icon in the left ribbon to open the right-side Git panel. From there you can stage files, write a commit message, and push with one click. You can also run **Obsidian Git: Create backup** from the command palette (`Cmd/Ctrl + P`) to do a full add → commit → push in one shot.
-
-## Mobile
-
-Obsidian works on iOS and Android, and obsidian-git supports mobile too. Mobile setup requires a personal access token; see the [obsidian-git docs](https://publish.obsidian.md/git-doc/Getting+Started) for the current steps.
-
-## Customizing the template
-
-- **Sync interval** — edit `autoPullInterval` and `autoSaveInterval` in `.obsidian/plugins/obsidian-git/data.json`. Default is `10` (minutes).
-- **Commit message format** — edit `commitMessage` in the same file.
-- **Ignored files** — edit `.gitignore` to add anything else you don't want tracked.
 
 ## Troubleshooting
 
