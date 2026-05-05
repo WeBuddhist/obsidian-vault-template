@@ -17,7 +17,7 @@ A template for creating a shared [Obsidian](https://obsidian.md) notebook (calle
 - **Clone** — making a copy of the GitHub repo on your own computer.
 - **Sync** — what happens automatically: your changes go up to GitHub, and your teammates' changes come down to you.
 
-## Set up a new vault
+## How to set up a new vault in Obsidian
 
 You only do this once per team. After this, you just open Obsidian like a normal app.
 
@@ -77,7 +77,7 @@ You only do this once per computer. Git is the tool Obsidian uses to sync the va
    ```
 3. Install [GitHub CLI](https://cli.github.com/), then run `gh auth login` to connect your GitHub account. Choose **GitHub.com → HTTPS → Login with a web browser** and follow the steps it shows you. After you do this once, GitHub won't ask for your password again.
 
-### 4. Make a copy of the repo on your computer
+### 4. Make a copy of the repo (clone the repo) on your computer
 
 This step downloads a copy of the GitHub repo onto your own computer. The technical word for this is *cloning*.
 
