@@ -120,12 +120,12 @@ Or, if you already have another vault open in Obsidian:
 3. In the window that appears, click **Open** next to **Open folder as vault**.
 4. Choose the folder that you just downloaded.
 
-### 6. Trust the author and turn on the plugin
+### 6. Trust the author and close the plugin window
 
 The first time you open the vault, Obsidian will show a warning about community plugins. This is because the Git plugin came with the template.
 
 1. Click **Trust author & enable plugins**.
-2. Go to **Settings → Community plugins** and check that **Obsidian Git** is turned on.
+2. Obsidian will then open the Community plugins window in front of your vault. The Obsidian Git plugin is already installed and turned on, so you don't need to do anything here — just **close the window** to see your vault behind it.
 
 That's it. The vault will now save your changes and pull in your teammates' changes automatically every 10 minutes.
 
@@ -149,6 +149,6 @@ If you don't want to wait 10 minutes (for example, you just finished a big edit 
 
 ## Troubleshooting
 
-- **The "Author not trusted" warning keeps appearing** — make sure you clicked **Trust author & enable plugins**, not just **Turn on community plugins**.
+- **Obsidian Git isn't enabled** — go to **Settings → Community plugins** and check that **Obsidian Git** is turned on. If you don't see it in the list, click **Browse** and install it.
 - **Nothing is syncing** — open the command palette (`Cmd + P` on Mac, `Ctrl + P` on Windows) and run **Obsidian Git: Check repository status**. The bar at the bottom of Obsidian also shows the current branch and sync status.
 - **You see an authentication error when saving** — run `gh auth login` again to reconnect your GitHub account. If that doesn't work, you can [set up an SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) instead.
