@@ -36,12 +36,16 @@ See [`Adaptations/About Adaptations.md`](Adaptations/About Adaptations.md) for t
 
 A plan track organises engagement with the text along a calendar — daily readings, weekly retreat sessions, a year-long course, a chanting preparation arc. Each day or session is generated from rails (and often from completed Translation or Adaptation outputs), then arranged into a publishable schedule with surrounding communications and assets.
 
-The track's prescriptive rails are:
+Plans are language-stratified: each published language gets its own subfolder inside the plan folder, with its own `requirements.md`, `termbase.md`, `schedule.md`, `days/`, `communications/`, and `assets/`. Language streams can be at different completion stages independently.
 
-- **`requirements.md`** — purpose, audience, the per-session shape (e.g. the seven-step daily structure in [plan-id]), the calendar policy, the languages published, the status rules.
-- **`termbase.md`** *(optional)* — standard renderings used across all sessions/languages.
+The plan's governing files are:
 
-See [`Plans/About Plans.md`](Plans/About Plans.md) for the convention. See the active plan folder under `Plans/` for this vault.
+- **`About <plan-name>.md`** (plan root) — cross-language overview: purpose, per-session shape that all language streams share, list of languages, source-rail dependencies, and status rules.
+- **`<lang>/requirements.md`** — style contract for one language stream, written in that language.
+- **`<lang>/termbase.md`** — vocabulary contract for one language stream.
+- **`<lang>/schedule.md`** — day-by-day calendar for one language stream.
+
+See [`Plans/About Plans.md`](Plans/About Plans.md) for the full convention and per-file schemas.
 
 ---
 
@@ -63,15 +67,19 @@ See [`Plans/About Plans.md`](Plans/About Plans.md) for the convention. See the a
 │ ├── audience.md # audience profile
 │ └── <output>.md # the generated files
 └── Plans/
- └── [plan-id]/ # e.g. [plan-id]
- ├── requirements.md # narrative brief governing the whole plan
- ├── termbase.md # standard term renderings
- ├── audience.md # audience profile
- ├── schedule/ # calendar + milestones
- ├── plans/ # the plan's internal arc structure (if multi-arc)
- ├── days/ # per-session content, one subfolder per language
- ├── communications/ # announcements, notifications, social media
- └── assets/ # liturgy, audio, images
+ └── <plan-name>/
+ ├── About <plan-name>.md # cross-language overview and session shape
+ └── <lang>/ # one folder per language (e.g. en/, bn/, pi/)
+ ├── requirements.md # style contract (in target language)
+ ├── termbase.md # vocabulary contract
+ ├── schedule.md # day-by-day calendar
+ ├── days/ # per-session output files
+ │ ├── day-1.md # intro + text transclusion + notifications
+ │ └── day-N.md
+ ├── communications/ # cross-day outreach content
+ │ └── announcements.md
+ └── assets/
+ └── images/
 ```
 
 Each track is one coherent output stream. New tracks are added by creating a subfolder under the appropriate category and seeding it with the right governing file(s). New categories should be rare — they exist because the three current ones map cleanly onto the three different things AI-powered work on a classical text actually produces.
@@ -99,15 +107,20 @@ Required for every track. Contains one entry per keyword that appears in the tex
 
 The termbase is built by the `glossary-select` skill from the consolidated `2-RAILS/Bilingual-Glossaries/<src>-<tgt>.md` file, guided by the track's `requirements.md`. If no existing rendering is satisfactory, derive one from the relevant Local-Wiki article and feed the new rendering back into the consolidated bilingual glossary as a new attested row.
 
-### `requirements.md` — the plan contract
+### Plan governing files
 
-Required for Plan tracks instead of `requirements.md` + `termbase.md`. A narrative document covering: purpose, audience, per-session shape, languages published, source-rail dependencies, communications convention, status rules, sample session. Plans cover so much surface area (multiple languages, multiple session formats, communications cadence, supporting assets) that a single narrative brief is easier to keep coherent than a split style-plus-vocab pair.
+Plans use a two-level contract rather than a single `requirements.md`:
 
-### `audience.md` — the audience profile
+- **`About <plan-name>.md`** (at plan root) — the cross-language brief: purpose, audience summary, per-session shape that all language streams share, list of published languages, source-rail dependencies, and status rules. Written in English regardless of which languages the plan publishes.
+- **`<lang>/requirements.md`** — the per-language style contract, written *in that language*. Covers: target audience and register for this stream, rendering conventions for each session step, communications style, cultural-adaptation rules.
+- **`<lang>/termbase.md`** — vocabulary contract for this language stream. Built by `glossary-select` from `2-RAILS/Bilingual-Glossaries/` plus the stream's `requirements.md`.
+- **`<lang>/schedule.md`** — the day-by-day calendar for this language stream: date, day number, verse/section reference, language-specific notes.
 
-Required for every track. A binding profile of the reader the transformation is written for, covering four dimensions: demographics and region; prior knowledge and reading level; use cases and reading settings; motivations and pain points. Where `requirements.md` prescribes *how* the output reads and `termbase.md` prescribes *which words* it uses, `audience.md` prescribes *who* the output is for — the load-bearing context behind every other decision in the track.
+### `audience.md` — the audience profile (Translations and Adaptations)
 
-The generation skill loads `audience.md` alongside `requirements.md` and `termbase.md` before every batch, so register, vocabulary, and structural choices stay calibrated to the reader. Scaffold a new track's `audience.md` from the template at [`../4-SYSTEM/Templates/audience.md`](../4-SYSTEM/Templates/audience.md). For Translation tracks, the file is written in the target language alongside `requirements.md`. For Plan tracks, the file covers the plan as a whole; per-language nuance lives in each Translation track's own `audience.md`.
+Required for Translation and Adaptation tracks. A binding profile of the reader the transformation is written for, covering four dimensions: demographics and region; prior knowledge and reading level; use cases and reading settings; motivations and pain points. Scaffold from the template at [`../4-SYSTEM/Templates/audience.md`](../4-SYSTEM/Templates/audience.md). Written in the target language alongside `requirements.md`.
+
+For Plan tracks, audience coverage is part of `About <plan-name>.md` at the cross-language level and `<lang>/requirements.md` at the per-stream level.
 
 ---
 
@@ -167,14 +180,23 @@ Adaptation and Plan skills are not yet catalogued; they will be added as those t
 
 ## 7. Checklist for a new track
 
-- [ ] Decide the category (Translations, Adaptations, Plans) and create the folder under the appropriate top-level subfolder.
-- [ ] Author `requirements.md` (Translation/Adaptation) or `requirements.md` covering all required sections (§3).
-- [ ] Scaffold `audience.md` from [`../4-SYSTEM/Templates/audience.md`](../4-SYSTEM/Templates/audience.md) and fill in the four dimensions before any generation begins.
-- [ ] For Translation tracks: ensure the consolidated `2-RAILS/Bilingual-Glossaries/<src>-<tgt>.md` exists and is `status: complete`.
-- [ ] For Translation tracks: run `glossary-select` to produce the initial `termbase.md`.
-- [ ] Write a per-track README pointing at the brief/requirements, the termbase, the audience profile, and the per-output structure.
+**Translation or Adaptation track:**
+- [ ] Create the folder under `Translations/` or `Adaptations/`.
+- [ ] Author `requirements.md` (in the target language) covering all required sections (§3).
+- [ ] Scaffold `audience.md` from [`../4-SYSTEM/Templates/audience.md`](../4-SYSTEM/Templates/audience.md) and fill in the four dimensions.
+- [ ] Ensure the consolidated `2-RAILS/Bilingual-Glossaries/<src>-<tgt>.md` exists and is `status: complete`.
+- [ ] Run `glossary-select` to produce the initial `termbase.md`.
 - [ ] Confirm the rails covering the first batch are `status: complete`.
 - [ ] Generate the first batch as `draft`; run QA; iterate until `complete`.
+
+**Plan track:**
+- [ ] Create `Plans/<plan-name>/`.
+- [ ] Author `About <plan-name>.md` — define the session shape and list of languages before any stream begins.
+- [ ] For each language stream: create `Plans/<plan-name>/<lang>/` and author `<lang>/requirements.md` (in that language).
+- [ ] Run `glossary-select` to produce `<lang>/termbase.md` for each stream.
+- [ ] Build `<lang>/schedule.md` for each stream.
+- [ ] Generate day-1 for each stream as `draft`; review; iterate until `complete` before proceeding to day-2.
+- [ ] Add communications content to `<lang>/communications/` as the plan rolls out.
 
 ---
 

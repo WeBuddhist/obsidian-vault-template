@@ -187,15 +187,22 @@ transformation_note: "tradition must be specified for this verse"
 
 Three top-level categories, each a top-level subfolder:
 
-- **`Translations/`** — language-by-language translations. Each track has `requirements.md` + `termbase.md` + the generated translation file(s).
-- **`Adaptations/`** — audience-targeted retellings. Each track has `requirements.md` and optionally `termbase.md`.
-- **`Plans/`** — calendar-driven study/practice arcs. Each plan has `requirements.md` plus calendar/days/communications/assets subfolders.
+- **`Translations/`** — language-by-language translations. Each track has `requirements.md` + `termbase.md` + `audience.md` + the generated translation file(s).
+- **`Adaptations/`** — audience-targeted retellings. Each track has `requirements.md`, `audience.md`, and optionally `termbase.md`.
+- **`Plans/`** — calendar-driven study/practice arcs. Each plan is language-stratified: one subfolder per published language, each containing `requirements.md`, `termbase.md`, `schedule.md`, `days/`, `communications/`, and `assets/`. The plan root holds only `About <plan-name>.md`.
 
-Every track is governed by binding contract files:
+**Translation / Adaptation contracts:**
 
-- **`requirements.md`** — style contract (audience, register, source-rail dependencies). Written in the target language.
-- **`termbase.md`** — vocabulary contract (one chosen rendering per keyword). Required for Translation tracks, optional for Adaptation and Plan tracks.
+- **`requirements.md`** — style contract, written in the target language.
+- **`termbase.md`** — vocabulary contract (one rendering per keyword).
 - **`audience.md`** — audience profile (demographics, prior knowledge, use cases, motivations).
+
+**Plan contracts:**
+
+- **`About <plan-name>.md`** — cross-language overview: session shape, language list, source-rail dependencies.
+- **`<lang>/requirements.md`** — per-language style contract, written in that language.
+- **`<lang>/termbase.md`** — per-language vocabulary contract.
+- **`<lang>/schedule.md`** — day-by-day calendar for that language stream.
 
 Do not generate from rails whose `status` is not `complete`.
 
