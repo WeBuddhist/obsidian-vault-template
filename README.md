@@ -1,154 +1,84 @@
-# obsidian-vault-template
+# [text-slug]-rails
 
-A template for creating a shared [Obsidian](https://obsidian.md) notebook (called a *vault*) that your whole team can edit together. Everyone's changes save and sync automatically every 10 minutes. The vault comes set up with the [obsidian-git](https://github.com/Vinzent03/obsidian-git) community plugin.
+A collaborative [Obsidian](https://obsidian.md) vault that makes AI-powered work on a **classical text** reliable, traceable, and consistent at scale.
 
-## What this gives you
+> **Using this template:** Replace every `[text-slug]` placeholder with your text's slug (e.g. `bodhisattvacharyavatara`, `mulamadhyamakakarika`). Fill in the per-vault annex at `4-SYSTEM/Guidelines/vault-annex.md` with the conventions specific to your text. Then delete this note.
 
-- A shared Obsidian vault. Whatever you write, your teammates see — and the other way around.
-- Automatic saving and syncing every 10 minutes, so you don't have to remember to save.
-- A list of files to ignore (`.gitignore`) so personal settings and hidden system files stay out of the shared copy.
-- The Obsidian Git plugin already installed and set up. New teammates can start using the vault as soon as they finish setup.
+## Why
 
-## A few words you'll see
+AI models are powerful but unreliable at scale. Hand a model a classical text and a stack of commentary and ask for a translation, an adaptation, a study guide, or a daily reading, and what comes back looks fluent but is hard to trust:
 
-- **Vault** — the folder that Obsidian uses to hold your notes.
-- **Git** — the tool that syncs the vault between you and your teammates.
-- **Terminal** (Mac) / **PowerShell** or **Git Bash** (Windows) — a window where you type commands instead of clicking buttons. You only need it during setup.
-- **Clone** — making a copy of the GitHub repo on your own computer.
-- **Sync** — what happens automatically: your changes go up to GitHub, and your teammates' changes come down to you.
+- **Hallucinations** — fabricated meanings that sound plausible.
+- **Inconsistency** — the same technical term rendered three different ways across one document.
+- **Style drift** — register shifts as the context window fills.
+- **No traceability** — no way to verify whether any specific claim is grounded in the commentary tradition or invented on the spot.
+- **Doesn't scale** — every new output rediscovers the same interpretive work from scratch.
 
-## How to set up a new vault in Obsidian
+These failures aren't because the model is weak. They happen because the model is being asked to be **two different specialists at once** — a source-language domain expert who understands every nuance the commentary tradition has worked out, *and* a target-language stylist who knows how to render that meaning for a specific audience. With no preparation and no division of labour, it tries to do both jobs at generation time, in the same prompt, from raw sources. The drift is structural.
 
-You only do this once per team. After this, you just open Obsidian like a normal app.
+## How
 
-### 1. Install Obsidian
+The fix is to separate the two specialists, then let them collaborate.
 
-Download Obsidian from [obsidian.md](https://obsidian.md) and install it. It's free and works on Mac, Windows, and Linux.
+**`2-RAILS/` is the source-language specialist, made permanent.** A pre-built, citation-grounded knowledge base of the commentary tradition — every sense distinction, every compound analysis, every commentator's reading — compiled once, by an LLM under domain-specialist review, with every claim citing the human source that grounds it.
 
-### 2. Create a new repo from this template
+**Each track in `3-TRANSFORMATIONS/` is a target-language specialist for one audience.** A Translation track is a specialist in writing for a particular language and readership. An Adaptation track is a specialist in writing for a particular format (children's, scholarly, sermon). A Plan track is a specialist in pacing a study arc along a calendar. Each one is bound by its own `requirements.md` (style contract) and `termbase.md` (vocabulary contract).
 
-This is the shared home for your vault on GitHub.
+Two principles hold the collaboration together:
 
-1. Go to the [WeBuddhist organization on GitHub](https://github.com/WeBuddhist) and click the **Repositories** tab.
-2. Click the green **New repository** button at the top right.
-3. Type a name for the repo (for example, `team-notes`).
-4. Choose **Private** (only WeBuddhist GitHub team members can see it) or **Public** (anyone can see it).
-5. Next to **Repository template**, click the **No template** dropdown and choose `WeBuddhist/obsidian-vault-template`.
-6. Click **Create repository**.
+- **Descriptive rails, prescriptive transformations.** The source specialist *describes* what the tradition attests: every commentator, every translator, every attested rendering. Each target specialist *prescribes* what *their* output does for *their* audience.
+- **One-way citation chain.** `1-SOURCES/ → 2-RAILS/ → 3-TRANSFORMATIONS/`. Target specialists cite the source specialist; they never reach past the rails into raw commentary.
 
-GitHub will create a new repo with the vault's structure already inside it.
+This is what makes the methodology scale. The expensive interpretive work happens once, in `2-RAILS/`, and is amortised over every output ever produced from the vault. **Lay the rails once; run many transformations on them.**
 
-### 3. Install Git and connect your GitHub account
+For the full reasoning — the specialist-pair and Wikipedia analogies — see [`4-SYSTEM/Guidelines/why-rails.md`](4-SYSTEM/Guidelines/why-rails.md).
 
-You only do this once per computer. Git is the tool Obsidian uses to sync the vault. After you connect your GitHub account, you won't have to log in again.
+## What
 
-**Mac**
-
-1. Open Terminal. (Press `Cmd + Space`, type "Terminal", and press Return.)
-2. Type `git --version` and press Return. If Git isn't installed, your Mac will ask if you want to install the Xcode Command Line Tools — click **Install** and wait for it to finish.
-3. Tell Git who you are. This name and email will appear next to every change you save:
-   ```
-   git config --global user.name "Your Name"
-   git config --global user.email "you@webuddhist.com"
-   ```
-4. Connect your GitHub account. The easiest way is to install [GitHub CLI](https://cli.github.com/) by running:
-   ```
-   brew install gh
-   ```
-   If Terminal says `command not found: brew`, you don't have Homebrew yet. Homebrew is a free tool that installs other tools on a Mac. Install it by pasting this into Terminal and pressing Return:
-   ```
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   ```
-   It will ask for your Mac password and may take a few minutes. When it finishes, you may see a "Next steps" message at the end — copy and run the two `echo` and `eval` lines it shows you (this lets Terminal find `brew`). Then run `brew install gh` again.
-
-   Once GitHub CLI is installed, run:
-   ```
-   gh auth login
-   ```
-   Choose **GitHub.com → HTTPS → Login with a web browser** and follow the steps it shows you. After you do this once, GitHub won't ask for your password again.
-
-**Windows**
-
-1. Install [Git for Windows](https://git-scm.com/download/win). Keep the default settings during installation.
-2. Open Git Bash (or PowerShell) and tell Git who you are:
-   ```
-   git config --global user.name "Your Name"
-   git config --global user.email "you@webuddhist.com"
-   ```
-3. Install [GitHub CLI](https://cli.github.com/), then run `gh auth login` to connect your GitHub account. Choose **GitHub.com → HTTPS → Login with a web browser** and follow the steps it shows you. After you do this once, GitHub won't ask for your password again.
-
-### 4. Make a copy of the repo (clone the repo) on your computer
-
-This step downloads a copy of the GitHub repo onto your own computer. The technical word for this is *cloning*.
-
-**First, decide where the vault should live.** Use Finder (Mac) or File Explorer (Windows) to create a folder for it — for example, a folder called `WeBuddhist` inside your Documents folder.
-
-**Now tell the Terminal where that folder is.** The "where" is called the *path*. Here are the easiest ways to copy it.
-
-*Mac*
-
-- Open Terminal, type `cd ` (the letters c-d followed by one space), then **drag the folder from Finder onto the Terminal window**. Terminal will paste the path for you. Press Return.
-- Or, in Finder, hold the **Option** key and right-click the folder. Choose **Copy "[folder name]" as Pathname** from the menu. Then in Terminal, type `cd ` and paste with `Cmd + V`.
-
-*Windows*
-
-- In File Explorer, click into the address bar at the top of the window — the path will appear. Copy it.
-- Or, hold **Shift** and right-click the folder. Choose **Copy as path** from the menu.
-- In PowerShell or Git Bash, type `cd ` and paste the path. (You can also drag the folder onto the PowerShell window to paste its path.)
-
-**Copy the repo's link from GitHub.** On your new repo's page on GitHub, click the green **Code** button and copy the HTTPS link.
-
-**Download the repo into that folder.** Back in Terminal (or PowerShell / Git Bash), type `git clone ` and paste the link:
+The vault is a four-stage pipeline. Each stage has its own folder; each folder's `About <Folder>.md` is the authoritative source on what goes in it and how.
 
 ```
-git clone https://github.com/WeBuddhist/<your-new-repo>.git
+1-SOURCES/   →   2-RAILS/   →   3-TRANSFORMATIONS/
+human            original-       per-output prescriptive
+authoritative    language        rails plus the
+material         descriptive     AI-generated output
+                 context
+
+                ▲
+                │ all driven by
+                │
+              4-SYSTEM/   skills, templates, methodology
 ```
 
-Press Return. This creates a new folder inside the one you chose, with the vault's contents inside.
+- **[`1-SOURCES/`](1-SOURCES/)** — root texts, commentaries, existing translations, audio, references. Read-only ground truth.
+- **[`2-RAILS/`](2-RAILS/)** — original-language descriptive context at every level a transformation might need: section summaries, verse packages, per-term wiki articles, bilingual glossaries. Every claim cites `1-SOURCES/`.
+- **[`3-TRANSFORMATIONS/`](3-TRANSFORMATIONS/)** — three categories of output (**Translations**, **Adaptations**, **Plans**). Each track is governed by `requirements.md` (style contract) + `termbase.md` (vocabulary contract); the AI-generated output files sit alongside, citing the rails.
+- **[`4-SYSTEM/`](4-SYSTEM/)** — skills and workflows for every stage of the pipeline, plus cross-cutting methodology docs and templates.
 
-### 5. Open the folder as a vault in Obsidian
+This vault serves **[name of text]**. Vault-specific conventions (addressing scheme, registered commentary IDs, language tracks) live in [`4-SYSTEM/Guidelines/vault-annex.md`](4-SYSTEM/Guidelines/vault-annex.md).
 
-1. Open Obsidian.
-2. In the menu at the top, choose **File**, then **Open Vault**.
-3. In the window that appears, click **Open** next to **Open folder as vault**.
-4. Choose the folder that you just downloaded.
+## Getting started — pick your path
 
-Or, if you already have another vault open in Obsidian:
+### If you are a human contributor
 
-1. Click the name of the open vault in the bottom-left corner of the Obsidian window.
-2. In the menu that appears, choose **Manage Vaults**.
-3. In the window that appears, click **Open** next to **Open folder as vault**.
-4. Choose the folder that you just downloaded.
+1. **This README** — Why · How · What (you are here).
+2. [Set up the vault on your computer](4-SYSTEM/How-to%20guides/Set%20up%20the%20vault.md) — install Obsidian, install Git, clone the repo, open it as a vault.
+3. [Sync and troubleshoot](4-SYSTEM/How-to%20guides/Sync%20and%20troubleshoot.md) — how everyone's edits stay in sync; what to do when something goes wrong.
+4. [`4-SYSTEM/Guidelines/why-rails.md`](4-SYSTEM/Guidelines/why-rails.md) — the specialist-pair and Wikipedia analogies in full.
+5. [`4-SYSTEM/Guidelines/0-VAULT-Structure.md`](4-SYSTEM/Guidelines/0-VAULT-Structure.md) — the architecture and the citation chain.
+6. [`1-SOURCES/About Sources.md`](1-SOURCES/About%20Sources.md) — rules for collecting, formatting, and linking source material.
+7. [`2-RAILS/About Rails.md`](2-RAILS/About%20Rails.md) — the schema for the descriptive rails.
+8. [`3-TRANSFORMATIONS/About Transformations.md`](3-TRANSFORMATIONS/About%20Transformations.md) — how transformation tracks are set up and how outputs are produced.
+9. [`4-SYSTEM/Guidelines/vault-annex.md`](4-SYSTEM/Guidelines/vault-annex.md) — the conventions specific to *this* vault.
+10. [`4-SYSTEM/Skills/SKILLS-CATALOG.md`](4-SYSTEM/Skills/SKILLS-CATALOG.md) — every workflow skill, grouped by pipeline stage.
 
-### 6. Trust the author and close the plugin window
+For day-to-day workflows not in the Skills catalog, see the rest of [`4-SYSTEM/How-to guides/`](4-SYSTEM/How-to%20guides/).
 
-The first time you open the vault, Obsidian will show a warning about community plugins. This is because the Git plugin came with the template.
+### If you are an AI agent
 
-1. Click **Trust author & enable plugins**.
-2. Obsidian will then open the Community plugins window in front of your vault. The Obsidian Git plugin is already installed and turned on, so you don't need to do anything here — just **close the window** to see your vault behind it.
+1. [`4-SYSTEM/CLAUDE.md`](4-SYSTEM/CLAUDE.md) — operational instructions: citation chain, write permissions, do-nots, standard operations. Read in full before touching any file.
+2. The `About <Folder>.md` for the folder you're working in — [`1-SOURCES/About Sources.md`](1-SOURCES/About%20Sources.md), [`2-RAILS/About Rails.md`](2-RAILS/About%20Rails.md), or [`3-TRANSFORMATIONS/About Transformations.md`](3-TRANSFORMATIONS/About%20Transformations.md). Each is the canonical authority for that folder's rules.
+3. [`4-SYSTEM/Guidelines/vault-annex.md`](4-SYSTEM/Guidelines/vault-annex.md) — vault-specific conventions.
+4. The relevant `4-SYSTEM/Skills/<skill>/SKILL.md` for the specific task.
 
-That's it. The vault will now save your changes and pull in your teammates' changes automatically every 10 minutes.
-
-## How sync works
-
-Every 10 minutes, Obsidian Git does two things:
-
-- **Pulls** — downloads any changes your teammates have made.
-- **Saves and uploads** — records your changes (called a *commit*) and sends them up to GitHub (called a *push*).
-
-It also pulls when you first open Obsidian, so you start with the latest copy of the vault.
-
-If two people edit the same line of the same note at the same time, Git won't know which version to keep. This is called a **merge conflict**. Obsidian Git will mark the conflicting lines in the file with special symbols. You can pick the version you want, delete the rest, and save the file.
-
-### Saving on demand
-
-If you don't want to wait 10 minutes (for example, you just finished a big edit and want your teammates to see it now), you can save manually.
-
-- Click the **Source Control View** icon in the left ribbon to open the Git panel on the right side of Obsidian. From there, you can pick which files to save, type a short message about the change, and click to save and upload.
-- Or, open Obsidian's command palette by pressing `Cmd + P` (Mac) or `Ctrl + P` (Windows). Type "create backup" and choose **Obsidian Git: Create backup**. This saves and uploads everything in one step.
-
-## Troubleshooting
-
-- **Obsidian Git isn't enabled** — go to **Settings → Community plugins** and check that **Obsidian Git** is turned on. If you don't see it in the list, click **Browse** and install it.
-- **Nothing is syncing** — open the command palette (`Cmd + P` on Mac, `Ctrl + P` on Windows) and run **Obsidian Git: Check repository status**. The bar at the bottom of Obsidian also shows the current branch and sync status.
-- **You see an authentication error when saving** — run `gh auth login` again to reconnect your GitHub account. If that doesn't work, you can [set up an SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) instead.
+`AGENTS.md` files exist for tooling that expects them ([`4-SYSTEM/gemini-scribe/AGENTS.md`](4-SYSTEM/gemini-scribe/AGENTS.md)) — they are thin pointers to `CLAUDE.md` and the folder docs.
