@@ -197,6 +197,17 @@
   },
   "active": "15f738fba38dda4c",
   "lastOpenFiles": [
+    "4-SYSTEM/Skills/interlinear-gloss/scripts/generate_ai_gloss.py",
+    "4-SYSTEM/Skills/verse-context/scripts/extract_block.py",
+    "4-SYSTEM/Skills/verse-context/scripts/scaffold_verse_context.py",
+    "4-SYSTEM/Skills/verse-context/scripts",
+    "4-SYSTEM/Guidelines/skills-system.md",
+    "4-SYSTEM/CLAUDE.md.tmp.40428.b3b9d9596834",
+    "4-SYSTEM/CLAUDE.md.tmp.40428.abb22a3b9270",
+    "4-SYSTEM/Skills/vault-audit/SKILL.md",
+    "4-SYSTEM/Skills/vault-audit",
+    "4-SYSTEM/Skills/create-skill/SKILL.md",
+    "4-SYSTEM/Skills/create-skill",
     "2-RAILS/About Rails.md",
     "3-TRANSFORMATIONS/Plans/About Plans.md",
     "3-TRANSFORMATIONS/About Transformations.md.tmp.34984.278324ed4bcb",
@@ -205,13 +216,6 @@
     "4-SYSTEM/How-to guides/How to Fix Git Merge Conflicts in Obsidian.md",
     "README.md",
     "gemini-scribe/Prompts/example-expert.md",
-    "gemini-scribe/Scheduled-Tasks/scheduled-tasks-state.json",
-    "gemini-scribe/Scheduled-Tasks/Runs",
-    "gemini-scribe/Scheduled-Tasks",
-    "gemini-scribe/Skills",
-    "gemini-scribe/Prompts",
-    "gemini-scribe/Background-Tasks",
-    "gemini-scribe/Agent-Sessions",
-    "gemini-scribe"
+    "gemini-scribe/Scheduled-Tasks/scheduled-tasks-state.json"
   ]
 }

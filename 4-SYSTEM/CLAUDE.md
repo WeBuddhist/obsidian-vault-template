@@ -2,6 +2,20 @@
 
 Persistent operational instructions for an LLM agent working in this vault. Read before touching any file.
 
+---
+
+## ⚑ Before doing anything — check for a skill first
+
+**This is the single most important rule in this file.**
+
+1. Open `4-SYSTEM/Skills/SKILLS-CATALOG.md` and scan for a skill that matches the task.
+2. If a match exists, open its `SKILL.md` in full and follow the execution steps exactly — do not improvise.
+3. Only if no skill exists should you proceed using the general rules below.
+
+Skipping this step is the most common agent error in this vault. The skills exist precisely to ensure consistency and correct citation format. A task done without its skill must be redone.
+
+---
+
 This file is the **operational quick-reference**. The canonical rules for each folder live in that folder's README:
 
 - [`../1-SOURCES/About Sources.md`](../1-SOURCES/About%20Sources.md) — sources rules in full
@@ -241,3 +255,41 @@ Full rules in [`../3-TRANSFORMATIONS/About Transformations.md`](../3-TRANSFORMAT
 3. For each batch: load section + verse rails → generate → record `context_packages:` in frontmatter → set `status: draft`.
 4. Run `translation-qa` (or equivalent QA skill); iterate until no critical/major errors.
 5. Domain specialist sets `status: complete`.
+
+---
+
+## 12. Skills — always check before starting work
+
+**Before beginning any vault task, check whether a skill already exists for it.**
+
+Skills are reusable, step-by-step procedures stored in `4-SYSTEM/Skills/`. Each skill has its own subfolder containing a `SKILL.md` that specifies exactly how to execute that operation. Following the skill ensures consistency and correct citation format across all vault files.
+
+### Where to look
+
+1. **Catalog first:** `4-SYSTEM/Skills/SKILLS-CATALOG.md` — lists every skill, its purpose, inputs, outputs, and a link to its `SKILL.md`.
+2. **Skill folder:** `4-SYSTEM/Skills/<skill-name>/SKILL.md` — the full execution instructions for a specific skill.
+
+### How to use a skill
+
+1. Read `4-SYSTEM/Skills/SKILLS-CATALOG.md` to find the skill that matches the task.
+2. Open and read the relevant `SKILL.md` in full before touching any vault file.
+3. Follow the execution steps in the `SKILL.md` exactly — do not improvise the format.
+4. If no skill exists for the task, proceed using the general rules in this file, and flag to the human contributor that a new skill may be worth writing.
+
+### Key skills and when to use them
+
+| Task | Skill |
+|------|-------|
+| Generate per-commentary raw section summary | `section-summary-raw` |
+| Combine raw summaries into one section file | `section-summary-combined` |
+| Build a verse context package | `verse-context` |
+| Create a local-wiki article | `local-wiki-article` |
+| Add or regenerate a TOC | `add-toc` |
+| Build an interlinear gloss | `interlinear-gloss` |
+| Extract a raw bilingual glossary | `glossary-extract-raw` |
+| Combine glossary files | `glossary-combine` |
+| Ingest EPUB as markdown | `epub-to-markdown` |
+| Ingest JSON (root text) | `json-to-source-text` |
+| Ingest JSON (commentary) | `json-to-commentary` |
+| Create a new skill (with full registration) | `create-skill` |
+| Audit vault integrity (weekly maintenance) | `vault-audit` |
