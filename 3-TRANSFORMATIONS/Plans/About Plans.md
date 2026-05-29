@@ -22,7 +22,7 @@ Plans/
         │   ├── day-1.md        # intro day: plan overview + text of day + notifications
         │   ├── day-2.md
         │   └── ...
-        ├── communications/     # outreach content for this language
+        ├── communication/      # outreach content for this language
         │   ├── announcements.md
         │   └── ...
         └── assets/
@@ -116,7 +116,7 @@ status: draft | partial | complete
 
 ## Communications folder
 
-`communications/` holds cross-day outreach content for this language stream — material that spans multiple sessions or the plan as a whole:
+`communication/` holds cross-day outreach content for this language stream — material that spans multiple sessions or the plan as a whole:
 
 - `announcements.md` — launch announcement, milestone announcements, closing announcement.
 - Additional files as needed (e.g. `social-media-kit.md`, `email-series.md`).
